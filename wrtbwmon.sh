@@ -173,9 +173,9 @@ case ${1} in
         done
         echo "0);" >> ${3}
 
-        echo "usage = 0;" >> ${3}
+        echo "usage_peak = 0; usage_offpeak = 0;" >> ${3}
         echo "for (i=0; i < values.length-1; i++) {document.write(\"<tr><td>\");" >> ${3}
-        echo "usage += values[i][1]+values[i][2]+values[i][3]+values[i][4];" >> ${3}
+        echo "usage_peak += values[i][1]+values[i][2]; usage_offpeak += values[i][3]+values[i][4];" >> ${3}
         echo "document.write(values[i][0]);document.write(\"</td><td>\");" >> ${3}
         echo "document.write(getSize(values[i][1]));document.write(\"</td><td>\");" >> ${3}
         echo "document.write(getSize(values[i][2]));document.write(\"</td><td>\");" >> ${3}
@@ -186,8 +186,8 @@ case ${1} in
         echo "document.write(getSize(values[i][1]+values[i][2]+values[i][3]+values[i][4]));document.write(\"</td><td>\");" >> ${3}
         echo "document.write(values[i][5]);document.write(\"</td></tr>\");" >> ${3}
         echo "}</script></table>" >> ${3}
-        echo "<br /><small>Total usage is <span id=\"usage\"></span></small>" >> ${3}
-        echo "<script type=\"text/javascript\">document.getElementById(\"usage\").innerHTML=getSize(usage); delete usage;</script>" >> ${3}
+        echo "<br /><small>Total peak usage is <span id=\"usage_peak\"></span><br />Total offpeak usage is <span id=\"usage_offpeak\"></span><br />Total usage is <span id=\"usage\"></span></small>" >> ${3}
+        echo "<script type=\"text/javascript\">document.getElementById(\"usage_peak\").innerHTML=getSize(usage_peak); document.getElementById(\"usage_offpeak\").innerHTML=getSize(usage_offpeak); document.getElementById(\"usage\").innerHTML=getSize(usage_peak+usage_offpeak); delete usage_peak; delete usage_offpeak;</script>" >> ${3}
         echo "<br /><small>This page was generated on `date`" >> ${3}
         echo "</body></html>" >> ${3}
 
