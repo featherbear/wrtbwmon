@@ -189,6 +189,12 @@ case ${1} in
         echo "<br /><small>Total peak usage is <span id=\"usage_peak\"></span><br />Total offpeak usage is <span id=\"usage_offpeak\"></span><br />Total usage is <span id=\"usage\"></span></small>" >> ${3}
         echo "<script type=\"text/javascript\">document.getElementById(\"usage_peak\").innerHTML=getSize(usage_peak); document.getElementById(\"usage_offpeak\").innerHTML=getSize(usage_offpeak); document.getElementById(\"usage\").innerHTML=getSize(usage_peak+usage_offpeak); delete usage_peak; delete usage_offpeak;</script>" >> ${3}
         echo "<br /><small>This page was generated on `date`" >> ${3}
+        echo "<br /><br /><div id='countdown_wrapper'></div></small>" >> ${3}
+        echo "<script>if (location.search.substr(1) == 'realtime') { location.reload(true); } else {document.getElementById('countdown_wrapper').innerHTML = \"Page will reload in <span id='countdown'></span>s\"; (function countdown(remaining) {" >> ${3}
+        echo "if(remaining <= 0) {document.getElementById('countdown_wrapper').innerHTML = 'Reloading!'; location.reload(true);}" >> ${3}
+        echo "else {document.getElementById('countdown').innerHTML = remaining;" >> ${3}
+        echo "setTimeout(function(){ countdown(remaining - 1); }, 1000);" >> ${3}
+        echo "}})(5)}</script>" >> ${3}
         echo "</body></html>" >> ${3}
 
         #Free some memory
